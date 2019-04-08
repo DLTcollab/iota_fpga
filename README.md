@@ -22,6 +22,37 @@ PoC parameters:
 
 [Download](https://github.com/LampaLab/iota_fpga/releases/tag/v0.1) Linux sd-card image for IOTA hardware accelerator on DE10-nano board and [latest](https://github.com/LampaLab/iota_fpga/releases/tag/v0.3) rbf file
 
+## Arrow SoCKit board
+Build instructions mentioned RBF file for Arrow SoCKit board. For the sake of consistency, we host FPGA related repository under DLTcollab umbrella.
+
+### Generate the RBF file
+* Install Intel Quartus Prime Lite Edition 17.1 and run synthesizing
+* Transform SOF file to RBF file
+```
+ ~/intelFPGA_lite/17.1/quartus/bin/quartus_cpf -c curl_fpga.sof soc_system.rbf
+```
+
+### Quickly start from scratch
+* [Download](https://github.com/LampaLab/iota_fpga/releases/tag/v0.1) Linux sd-card image for Cyclone V
+* The RBF file for Arrow SocKit board
+* Creating an SD Card using a Linux Host
+```
+$ sudo dd if=DE10_iota_fpga_Linux.img of=/dev/sdb bs=2048
+$ sudo sync
+```
+* Overwrite the RBF file in the SD card
+```
+$ sudo mkdir sdcard
+$ sudo mount /dev/sdb1 sdcard/
+$ sudo cp soc_system.rbf sdcard/
+$ sudo umount sdcard
+```
+
+* Connect to remote shell (account/password: root/123456)
+```
+$ ssh root@192.168.1.102
+```
+
 If you like this work, please donate some MIOTA to support it further development: 
 
 [U9XOVBWJUBCE99ZIKIUGXZFSSGLUAPHUG9XZTVOVHZ99HVTQXET9CD9V9FMDNLSLPQDYXOHKBA9MVHI9ZOVCVHVJXA](https://thetangle.org/address/U9XOVBWJUBCE99ZIKIUGXZFSSGLUAPHUG9XZTVOVHZ99HVTQXET9CD9V9FMDNLSLPQDYXOHKBA9MVHI9Z)
